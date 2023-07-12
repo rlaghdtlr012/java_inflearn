@@ -24,7 +24,7 @@ class MemberServiceIntegrationTest {
     void 회원가입() {
         // given
         Member member = new Member();
-        member.setName("spring");
+        member.setName("spring1");
 
         // when
         Long saveId = memberService.join(member);
@@ -38,10 +38,10 @@ class MemberServiceIntegrationTest {
     public void 중복회원예외() throws Exception {
         // given
         Member member1 = new Member();
-        member1.setName("spring1");
+        member1.setName("spring2");
 
         Member member2 = new Member();
-        member2.setName("spring1");
+        member2.setName("spring3");
 
         // when
         // 같은 이름을 저장한 것에 대해서 중복 로직에 걸려서 에러가 터져야 함
