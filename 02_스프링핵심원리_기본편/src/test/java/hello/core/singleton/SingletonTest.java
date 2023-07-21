@@ -5,6 +5,8 @@ import hello.core.member.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class SingletonTest {
 
@@ -41,5 +43,24 @@ public class SingletonTest {
 
         // 싱글톤 패턴으로 만든 인스턴스들은 같은 참조값을 가진다.
         Assertions.assertThat(singletonService1).isSameAs(singletonService2);
+    }
+
+    @Test
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    void springContainer() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        // 1. 조회: 호출할 때마다 객체를 생성
+        MemberService memberService1 = ac.getBean("memberService", MemberService.class);
+
+        // 2. 조회: 호출할 때마다 객체를 생성
+        MemberService memberService2 = ac.getBean("memberService", MemberService.class);
+
+        // 3. 참조값이 다른 것을 확인 요청이 올 때마다 객체를 생성하는 것이니까 각 객체의 참조값이 달라야 한다.
+        // 계속 객체가 생성이 됨으로써 JVM 메모리에 계속 객체가 생기고, 적재됨
+        System.out.println("memberService1 = " + memberService1);
+        System.out.println("memberService2 = " + memberService2);
+
+        // memberService1 != memberService2
+        Assertions.assertThat(memberService1).isSameAs(memberService2);
     }
 }
