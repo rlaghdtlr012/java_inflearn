@@ -25,7 +25,7 @@ class StatefulServiceTest {
         int price = statefulService1.getPrice();
         System.out.println("price = " + price); // 실제로는 20000원이 나옴!!
         // statefulService는 싱글톤 패턴의 같은 객체를 쓰고 있기에, 서로 다른 스레드가 서로 간섭을 일으켜서 의도치 않게 공유되는 필드값의 변화가 일어날 수도 있다.
-        Assertions.assertThat(statefulService1.getPrice()).isEqualTo(10000);
+        Assertions.assertThat(statefulService1.getPrice()).isEqualTo(20000);
     }
 
     static class TestConfig {

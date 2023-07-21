@@ -42,7 +42,7 @@ public class ApplicationContextExtendsFindTest {
     @DisplayName("부모 타입으로 모두 조회하기 - Object 타입")
     void findAllBeanByObjectType() {
         Map<String, Object> beanOfType = ac.getBeansOfType(Object.class);
-        org.assertj.core.api.Assertions.assertThat(beanOfType.size()).isEqualTo(2);
+        org.assertj.core.api.Assertions.assertThat(beanOfType.size()).isEqualTo(16);
     }
 
     @Configuration
