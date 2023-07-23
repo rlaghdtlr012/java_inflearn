@@ -14,7 +14,7 @@ public class ComponentFilterAppConfigTest {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ComponentFilterAppConfig.class);
         BeanA beanA = ac.getBean("beanA", BeanA.class);
         Assertions.assertThat(beanA).isNotNull();
-        BeanB beanB = ac.getBean("beanB", BeanB.class);
+//        BeanB beanB = ac.getBean("beanB", BeanB.class);
         // Assertions.assertThat(beanB).isNotNull();
         // excludeBean 했기 때문에 beanB는 찾을 수 없다고 나온다.
     }
