@@ -9,9 +9,6 @@ import java.util.Map;
 
 public class MyView {
     private String viewPath;
-    private String mymy123;
-    private String mymy2;
-    private String mymy3;
 
     public MyView(String viewPath) {
         this.viewPath = viewPath;
