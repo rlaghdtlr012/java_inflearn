@@ -14,7 +14,6 @@ import java.util.Map;
 public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
     @Override
     public boolean supports(Object handler) {
-//        return aaa
         return (handler instanceof ControllerV3);
     }
 
