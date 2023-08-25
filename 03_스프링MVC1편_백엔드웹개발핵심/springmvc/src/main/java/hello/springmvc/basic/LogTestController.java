@@ -17,6 +17,7 @@ public class LogTestController {
         // 밑으로 갈 수록 레벨이 높아지고 중요도가 높아지는거
         log.trace("trace log={}", name);
         log.debug("debug log={}", name);
+        log.debug("debug log={}", name);
         log.info(" info log={}", name);
         log.warn(" warn log={}", name);
         log.error("error log={}", name);
