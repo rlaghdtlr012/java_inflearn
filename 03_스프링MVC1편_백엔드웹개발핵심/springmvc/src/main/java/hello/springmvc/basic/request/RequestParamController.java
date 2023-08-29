@@ -1,14 +1,13 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -43,4 +42,63 @@ public class RequestParamController {
         System.out.println("username = " + username + " age = " + age);
         return "ok";
     }
+
+    @ResponseBody
+    @RequestMapping("/request-param-required") // Param이 필수적인지 아닌지, username은 필수이고, age는 필수 아니다(true가 default임)
+    public String requestParamRequired(@RequestParam(required = true) String username, @RequestParam(required = false) Integer age) {
+//        System.out.println("username = " + username + " age = " + age);
+        return "ok";
+    }
+
+    /**
+     * @RequestParam
+     * - defaultValue 사용
+     *
+     * 참고: defaultValue는 빈 문자의 경우에도 적용
+     * /request-param-default?username=
+     */
+    @ResponseBody
+    @RequestMapping("/request-param-default")
+    public String requestParamDefault(
+            @RequestParam(required = true, defaultValue = "guest") String username,
+            @RequestParam(required = false, defaultValue = "-1") int age) {
+        System.out.println("username + age = " + username + age);
+        return "ok";
+    }
+
+    /**
+     * @RequestParam Map, MultiValueMap
+     * Map(key=value)
+     * MultiValueMap(key=[value1, value2, ...]) ex) (key=userIds, value=[id1, id2])
+     */
+    @ResponseBody
+    @RequestMapping("/request-param-map")
+    public String requestParamMap(@RequestParam Map<String, Object> paramMap) {
+        log.info("username={}, age={}", paramMap.get("username"),
+                paramMap.get("age"));
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1") // modelAttribute는 자동으로 helloData 객체를 생성해준다
+    // modelAttribute는 요청 파라미터 이름으로 HelloData 객체의 프로퍼티를 찾고, 해당 프로퍼티의 setter를 호출해서 파라미터의 값을
+    // 자동으로 바인딩 해준다.
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        System.out.println("helloData = " + helloData);
+        return "ok";
+    }
+
+    /**
+     * @ModelAttribute 생략 가능
+     * String, int 같은 단순 타입 = @RequestParam
+     * argument resolver 로 지정해둔 타입 외 = @ModelAttribute
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(),
+                helloData.getAge());
+        return "ok";
+    }
+
 }
