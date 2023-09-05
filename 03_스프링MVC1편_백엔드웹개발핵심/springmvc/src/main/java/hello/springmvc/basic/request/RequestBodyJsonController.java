@@ -4,9 +4,12 @@ package hello.springmvc.basic.request;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -32,5 +35,38 @@ public class RequestBodyJsonController {
         HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
         response.getWriter().write("ok");
+    }
+
+    @ResponseBody
+    @PostMapping("/request-body-json-v2")
+    public String requestBodyJsonV2(@RequestBody String messageBody) throws IOException {
+        log.info("messageBody={}", messageBody);
+        HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+
+        return "ok";
+    }
+
+    @ResponseBody // @ResponseBody => 컨트롤러 메소드가 Http 응답의 본문에 직접 데이터를 작성하도록 지시하는거. 이 어노테이션 사용 시,
+    // 컨트롤러 메소드가 HTML 페이지를 반환하는 것이 아니라 JSON, XML 등의 데이터를 직접 HTTP 응답 본문에 쓸 수 있다.
+    @PostMapping("/request-body-json-v3")
+    public String requestBodyJsonV3(@RequestBody HelloData helloData) {
+        log.info("username={}, age={}", helloData.getAge(), helloData.getAge());
+        return "ok";
+    }
+
+    @ResponseBody
+    @PostMapping("/request-body-json-v4")
+    public String requestBodyJsonV4(HttpEntity<HelloData> data) {
+        HelloData helloData = data.getBody();
+        log.info("username={}, age={}", helloData.getAge(), helloData.getAge());
+        return "ok";
+    }
+
+    @ResponseBody
+    @PostMapping("/request-body-json-v5")
+    public HelloData requestBodyJsonV5(@RequestBody HelloData data) {
+        log.info("username={}, age={}", data.getAge(), data.getAge());
+        return data;
     }
 }
