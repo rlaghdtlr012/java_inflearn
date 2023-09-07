@@ -33,4 +33,8 @@ public class ItemRepository {
         findItem.setQuantity(updateParam.getQuantity());
         // FM은 ID를 제외한 ItemParameterDTO 객체를 새로 만드는 것이 낫다. 왜냐하면 ID가 있는데 쓰지 않으면 개발자에게 혼란을 줄 수 있어서
     }
+
+    public void clearStore() {
+        store.clear();
+    }
 }
