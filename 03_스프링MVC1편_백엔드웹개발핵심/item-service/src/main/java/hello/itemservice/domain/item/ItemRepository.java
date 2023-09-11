@@ -14,7 +14,7 @@ public class ItemRepository {
 
     public Item save(Item item) {
         item.setId(++sequence);
-        store.put(item.getId(), item); // item.getId라는 고유한 식별자에 item이라는 객체를 넣어서 보관, 저장한다.
+        store.put(item.getId(), item); // item.getId라는 고유한 식별자에 item이라는 객체를 넣어서 보관, 저장한다..
         return item;
     }
 
