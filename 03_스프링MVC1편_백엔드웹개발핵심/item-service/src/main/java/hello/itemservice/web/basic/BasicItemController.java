@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/basic/items")
-@RequiredArgsConstructor // 밑에 주석 처리 된 @Autowired 의존성 주입이랑 같은 기능 제공
+@RequiredArgsConstructor // 밑에 주석 처리 된 @Autowired 의존성 주입이랑 같은 기능 제공.
 public class BasicItemController {
 
     private final ItemRepository itemRepository;
