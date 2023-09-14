@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -79,12 +80,35 @@ public class BasicItemController {
      * @ModelAttribute 자체 생략 가능
      * model.addAttribute(item) 자동 추가
      */
+//    @PostMapping("/add")
+//    public String addItemV4(Item item) {
+//        itemRepository.save(item);
+//        return "redirect:/basic/items/" + item.getId(); // Post 요청을 하고 view 템플릿을 반환할 시, 만약 그 상태에서 새로고침을 하면
+//        // Post 요청이 중복으로 계속해서 요청된다. 따라서 return 값을 view 이름을 할 것이 아니라 redirect를 사용해야 한다.
+//        // Post -> Redirect -> Get(내가 지정한 특정 페이지로 Get 요청 후, 이동)
+//    }
+
     @PostMapping("/add")
-    public String addItemV4(Item item) {
-        itemRepository.save(item);
-        return "basic/item";
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId()); // url Encoding도 알아서 다 해줌
+        redirectAttributes.addAttribute("status", true); // 밑에 return 문 안에 포함되어 있지 않은 값들은
+        // ?status=true 쿼리 파라미터의 형태로 뒤에 붙어서 반환된다.
+        return "redirect:/basic/items/{itemId}";
     }
 
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
+    }
     // 테스트용 데이터 추가
     @PostConstruct
     public void init() {
