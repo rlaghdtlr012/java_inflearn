@@ -21,8 +21,8 @@ class MemberRepositoryV1Test {
     @BeforeEach
     void beforeEach() {
         // 기본 DriverManager를 통해 항상 새로운 커넥션을 획득하는 경우
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-//        repository = new MemberRepositoryV1(dataSource);
+        // DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+        // repository = new MemberRepositoryV1(dataSource);
 
         // Hikari를 사용한 커넥션풀 사용
         // connection name은 다 con0임. 왜냐하면 커넥션 풀에서는
