@@ -89,7 +89,8 @@ public class MemberRepositoryV2 {
         } finally {
             JdbcUtils.closeResultSet(rs);
             JdbcUtils.closeStatement(pstmt);
-//            JdbcUtils.closeConnection(con); connection 닫으면 안됨. connection은 서비스에서 닫아야함
+            // connection 닫으면 안됨. connection은 서비스에서 닫아야 함
+            // JdbcUtils.closeConnection(con);
         }
     }
 
