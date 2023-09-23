@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import static hello.jdbc.connection.ConnectionConst.*;
 
 /**
- * 트랜잭션 - 트랜잭션 매니저 사용
+ * 트랜잭션 - 트랜잭션 매니저 사용. 예약커밋
  */
 public class MemberServiceV3_1Test {
     public static final String MEMBER_A = "memberA";
