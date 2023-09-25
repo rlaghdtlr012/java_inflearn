@@ -37,17 +37,6 @@ public class MemberServiceV3_2 {
                 throw new IllegalStateException(e);
             }
         });
-        // 트랜잭션 시작
-        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-
-        try {
-            // 비즈니스 로직 시작
-
-            transactionManager.commit(status); // 성공하면 커밋
-        } catch (Exception e) {
-            transactionManager.rollback(status);
-            throw new IllegalStateException(e);
-        }
     }
 
     private void bizLogic(String fromId, String toId, int money) throws SQLException {
