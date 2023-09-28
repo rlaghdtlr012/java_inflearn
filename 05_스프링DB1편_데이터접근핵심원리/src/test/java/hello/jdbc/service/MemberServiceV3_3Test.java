@@ -20,7 +20,7 @@ import static hello.jdbc.connection.ConnectionConst.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
- * 트랜잭션 - @Transactional AOP
+ * 트랜잭션 - @Transactional AOP 적용
  */
 @Slf4j
 @SpringBootTest
