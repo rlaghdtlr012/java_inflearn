@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * 예외 누수 문제 해결
  * SQLException 제거
- * MemberRepository 인터페이스에 의존
+ * MemberRepository 인터페이스에 의존하는 방법으로 변경
  */
 @Slf4j
 @SpringBootTest
